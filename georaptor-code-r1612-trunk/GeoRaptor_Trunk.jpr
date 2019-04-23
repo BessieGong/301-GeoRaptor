@@ -1,0 +1,381 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
+   <hash n="component-versions">
+      <value n="oracle.ideimpl.model.TechnologyScopeUpdateMigrator" v="11.1.2.0.0.5"/>
+   </hash>
+   <list n="contentSets">
+      <string v="oracle.jdeveloper.model.PathsConfiguration/javaContentSet"/>
+      <string v="oracle.ide.model.ResourcePaths/resourcesContentSet"/>
+      <string v="oracle.jdeveloper.model.J2eeSettings/webContentSet"/>
+      <string v="oracle.jdeveloper.offlinedb.model.OfflineDBProjectSettings/offlineDBContentSet"/>
+      <string v="oracle.mds.internal.dt.ide.MDSLibraryCustCSProvider/mdsContentSet"/>
+      <string v="oracle.mds.internal.dt.ide.MDSADFLibVirtualNodeCSProvider/mdsLibVirtualNodeContentSet"/>
+      <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
+      <string v="oracle.adfdtinternal.model.ide.settings.ADFMSettings/adfmContentSet"/>
+      <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
+   </list>
+   <value n="defaultPackage" v="georaptor_trunk"/>
+   <hash n="oracle.ide.model.TechnologyScopeConfiguration">
+      <list n="technologyScope">
+         <string v="Ant"/>
+         <string v="ExtensionDT"/>
+         <string v="Java"/>
+         <string v="Java-Modeling"/>
+         <string v="XML"/>
+      </list>
+   </hash>
+   <hash n="oracle.jdeveloper.compiler.ant.AntConfiguration">
+      <value n="makeTarget" v="DevBuild"/>
+      <url n="projectBuildfile" path="build.xml"/>
+   </hash>
+   <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
+      <value n="source" v="1.6"/>
+      <value n="target" v="1.6"/>
+   </hash>
+   <hash n="oracle.jdevimpl.config.JProjectLibraries">
+      <list n="exportedReferences">
+         <hash>
+            <value n="id" v="Ojdbc6.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Idert.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jdev-rt.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Javax-ide.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Javatools-nodeps.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Javatools.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle.sqldeveloper.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle.sqldeveloper.utils.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle.sqldeveloper.snippet.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle.ide.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle.ide.navigator.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oicons.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Dbapi.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-codec-1.4.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Sdoapi.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Sdoutl.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jts.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="XBaseJMicro.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+      </list>
+      <hash n="internalDefinitions">
+         <list n="jdkDefinitions">
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper/jdk/jre/lib/resources.jar" jar-entry=""/>
+                  <url path="../../../oracle/sqldeveloper/jdk/jre/lib/rt.jar" jar-entry=""/>
+                  <url path="../../../oracle/sqldeveloper/jdk/jre/lib/sunrsasign.jar" jar-entry=""/>
+                  <url path="../../../oracle/sqldeveloper/jdk/jre/lib/jsse.jar" jar-entry=""/>
+                  <url path="../../../oracle/sqldeveloper/jdk/jre/lib/jce.jar" jar-entry=""/>
+                  <url path="../../../oracle/sqldeveloper/jdk/jre/lib/charsets.jar" jar-entry=""/>
+                  <url path="../../../oracle/sqldeveloper/jdk/jre/lib/jfr.jar" jar-entry=""/>
+                  <url path="../../../oracle/sqldeveloper/jdk/jre/classes/"/>
+               </list>
+               <value n="description" v="1.8.0_102"/>
+               <list n="docPath">
+                  <url protocol="http" host="docs.oracle.com" path="/javase/8/docs/api/"/>
+               </list>
+               <value n="id" v="1.8.0_102"/>
+               <url n="javaExecutable" path="../../../oracle/sqldeveloper/jdk/jre/bin/java.exe"/>
+               <url n="sdkBinDir" path="../../../oracle/sqldeveloper/jdk/bin/"/>
+               <value n="version" v="1.8.0_102"/>
+            </hash>
+         </list>
+         <list n="libraryDefinitions">
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/ide/lib/idert.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Idert.jar"/>
+               <value n="id" v="Idert.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/jdev/lib/jdev-rt.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Jdev-rt.jar"/>
+               <value n="id" v="Jdev-rt.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/modules/oracle.javatools_11.1.1/javatools-nodeps.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Javatools-nodeps.jar"/>
+               <value n="id" v="Javatools-nodeps.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/jdbc/lib/ojdbc6.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Ojdbc6.jar"/>
+               <value n="id" v="Ojdbc6.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/sqldeveloper/extensions/GeoRaptorLibs/jts.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Jts.jar"/>
+               <value n="id" v="Jts.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/sqldeveloper/lib/oracle.sqldeveloper.utils.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Oracle.sqldeveloper.utils.jar"/>
+               <value n="id" v="Oracle.sqldeveloper.utils.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/sqldeveloper/extensions/GeoRaptorLibs/sdoutl.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Sdoutl.jar"/>
+               <value n="id" v="Sdoutl.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/sqldeveloper/extensions/oracle.sqldeveloper.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Oracle.sqldeveloper.jar"/>
+               <value n="id" v="Oracle.sqldeveloper.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/sqldeveloper/extensions/GeoRaptorLibs/xBaseJMicro.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="XBaseJMicro.jar"/>
+               <value n="id" v="XBaseJMicro.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/sqldeveloper/extensions/oracle.sqldeveloper.snippet.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Oracle.sqldeveloper.snippet.jar"/>
+               <value n="id" v="Oracle.sqldeveloper.snippet.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/ide/lib/javax-ide.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Javax-ide.jar"/>
+               <value n="id" v="Javax-ide.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/ide/lib/dbapi.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Dbapi.jar"/>
+               <value n="id" v="Dbapi.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/ide/extensions/oracle.ide.navigator.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Oracle.ide.navigator.jar"/>
+               <value n="id" v="Oracle.ide.navigator.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/sqldeveloper/lib/commons-codec-1.4.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Commons-codec-1.4.jar"/>
+               <value n="id" v="Commons-codec-1.4.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/ide/lib/javatools.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Javatools.jar"/>
+               <value n="id" v="Javatools.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/ide/lib/oicons.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Oicons.jar"/>
+               <value n="id" v="Oicons.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/sqldeveloper/lib/sdoapi.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Sdoapi.jar"/>
+               <value n="id" v="Sdoapi.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../oracle/sqldeveloper32/ide/extensions/oracle.ide.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Oracle.ide.jar"/>
+               <value n="id" v="Oracle.ide.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+         </list>
+      </hash>
+      <hash n="jdkReference">
+         <value n="id" v="1.8.0_102"/>
+         <value n="isJDK" v="true"/>
+         <value n="jdkVersion" v="1.8.0_102"/>
+      </hash>
+      <list n="libraryReferences">
+         <hash>
+            <value n="id" v="Ojdbc6.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Idert.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jdev-rt.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Javax-ide.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Javatools-nodeps.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Javatools.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle.sqldeveloper.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle.sqldeveloper.utils.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle.sqldeveloper.snippet.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle.ide.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle.ide.navigator.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oicons.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Dbapi.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-codec-1.4.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Sdoapi.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Sdoutl.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jts.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="XBaseJMicro.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+      </list>
+   </hash>
+   <hash n="oracle.jdevimpl.config.JProjectPaths">
+      <url n="outputDirectory" path="classes/"/>
+   </hash>
+</jpr:project>

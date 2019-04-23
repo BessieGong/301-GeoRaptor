@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="windows-1250" ?>
+<project default="DevBuild">
+   <property file="version.properties"/>
+   <property file="build.properties"/>
+   <property file="scp.properties"/>
+
+   <property name="GeoRaptor.home"    value="."/>
+   <property name="GeoRaptor.classes" value="./classes"/>
+   <property name="GeoRaptor.deploy"  value="./deploy"/>
+   <property name="GeoRaptor.dist"    value="./dist"/>   
+   <property name="GeoRaptor.install" value="./install"/>
+   <property name="GeoRaptor.libdir"  value="./libs"/>
+   <property name="GeoRaptor.srcdir"  value="./src"/>
+   <!--<property name="JTS.libdir"        value="/Projects/JTS/deploy"/>-->
+
+   <path id="classpath">
+      <!-- SQL Developer -->
+      <pathelement path="${SQLDeveloper.home}/modules/oracle.javatools_11.1.1/javatools-nodeps.jar"/>
+      <pathelement path="${SQLDeveloper.home}/jdev/lib/jdev-rt.jar"/>
+      <pathelement path="${SQLDeveloper.home}/jdbc/lib/ojdbc6.jar"/>
+      <pathelement path="${SQLDeveloper.home}/ide/lib/idert.jar"/>
+      <pathelement path="${SQLDeveloper.home}/ide/extensions/oracle.ide.jar"/>
+      <pathelement path="${SQLDeveloper.home}/ide/lib/dbapi.jar"/>
+      <pathelement path="${SQLDeveloper.home}/ide/lib/javax-ide.jar"/>
+      <pathelement path="${SQLDeveloper.home}/ide/lib/javatools.jar"/>
+      <pathelement path="${SQLDeveloper.home}/ide/extensions/oracle.ide.navigator.jar"/>
+      <pathelement path="${SQLDeveloper.home}/ide/extensions/oracle.ide.ceditor.jar" />
+      <pathelement path="${SQLDeveloper.home}/sqldeveloper/lib/sdoapi.jar"/>
+      <pathelement path="${SQLDeveloper.home}/sqldeveloper/lib/oracle.sqldeveloper.utils.jar"/>
+      <pathelement path="${SQLDeveloper.home}/sqldeveloper/extensions/oracle.sqldeveloper.jar"/>
+      <pathelement path="${SQLDeveloper.home}/sqldeveloper/extensions/oracle.sqldeveloper.snippet.jar"/>
+      <pathelement path="${SQLDeveloper.home}/sqldeveloper/lib/commons-codec-1.4.jar"/>
+      <!-- Key external APIs -->
+      <pathelement location="${GeoRaptor.libdir}/sdoutl.jar"/>
+      <pathelement location="${GeoRaptor.libdir}/sdotopo.jar"/>
+      <pathelement location="${GeoRaptor.libdir}/xBaseJMicro.jar"/>
+      <pathelement location="${GeoRaptor.libdir}/jts.jar"/>
+   </path>
+
+   <path id="classpath_project">
+      <pathelement location="${GeoRaptor.classes}"/>
+   </path>
+   
+   <target name="devversion">
+       <propertyfile file="version.properties" comment="Build version info">
+         <entry key="earlyaccess.buildNum" default="0" type="int" operation="+" value="1" pattern="0000"/>
+       </propertyfile>
+       <property name="GeoRaptor.version"  value="${earlyaccess.major}.${earlyaccess.minor}.${earlyaccess.buildNum}"/>
+       <property name="GeoRaptor.folder"   value="${earlyaccess.major}.${earlyaccess.minor}"/>
+   </target>
+
+   <target name="releaseversion">
+       <propertyfile file="version.properties" comment="Build version info">
+         <entry key="release.buildNum"    default="0" type="int" operation="+" value="1" pattern="0000"/>
+       </propertyfile>
+       <property name="GeoRaptor.version" value="${release.major}.${release.minor}.${release.buildNum}"/>
+       <property name="GeoRaptor.folder"  value="${release.major}.${release.minor}"/>
+   </target>
+
+   <target name="compile" >
+      <delete dir="${GeoRaptor.classes}" quiet="true"/>
+      <delete dir="${GeoRaptor.deploy}"  quiet="true"/>
+      <delete dir="${GeoRaptor.dist}"    quiet="true"/>
+      <mkdir dir="${GeoRaptor.classes}"/>
+      <javac destdir="${GeoRaptor.classes}" debug="yes" encoding="Cp1250" verbose="no" includeantruntime="false">
+         <classpath refid="classpath"/>
+         <src path="${GeoRaptor.srcdir}"/>
+         <include name="**/*.java"/>
+         <exclude name="**/*.xml"/>
+         <exclude name="**/*Test.java"/>
+      </javac>
+   </target>
+   
+   <target name="createJAR" depends="compile">
+      <mkdir dir="${GeoRaptor.deploy}"/>
+      <mkdir dir="${GeoRaptor.dist}/META-INF"/>
+      <!-- delete old JAR files -->
+      <delete  quiet="true">
+         <fileset dir="${GeoRaptor.deploy}" includes="**/*"/>
+         <fileset dir="${GeoRaptor.dist}"   includes="**/*"/>
+      </delete>
+      <copy file="${GeoRaptor.srcdir}/META-INF/extension_template.xml" 
+          tofile="${GeoRaptor.dist}/META-INF/extension.xml">
+         <filterchain>
+            <replacetokens begintoken="#" endtoken="#">
+               <token key="VERSION" value="${GeoRaptor.version}"/>
+            </replacetokens>
+         </filterchain>
+      </copy>
+
+      <!-- executable package -->
+      <jar destfile="${GeoRaptor.deploy}/org.GeoRaptor.jar">
+         <fileset dir="${GeoRaptor.classes}"   includes="**/*.class"/>
+         <fileset dir="${GeoRaptor.srcdir}"    includes="**/*.png"/>
+         <fileset dir="${GeoRaptor.srcdir}"    includes="**/*.jpg"/>
+         <fileset dir="${GeoRaptor.dist}"      includes="**/META-INF/extension.xml"/>
+         <fileset dir="${GeoRaptor.srcdir}"    includes="**/GeoRaptor/menu.xml"/>
+         <fileset dir="${GeoRaptor.srcdir}"    includes="**/GeoRaptor/Snippets/GeoRaptorNav.xml"/>
+         <fileset dir="${GeoRaptor.srcdir}"    includes="**/GeoRaptor/snippets.xml"/>
+         <fileset dir="${GeoRaptor.srcdir}"    includes="**/GeoRaptor/xml/navigator.xml"/>
+         <fileset dir="${GeoRaptor.srcdir}"    includes="**/ValidateSDOGeometry/ValidateSDOGeometry_error_codes.xml"/>
+         <fileset dir="${GeoRaptor.srcdir}"    includes="**/*.gif"/>
+         <!-- fileset dir="${GeoRaptor.srcdir}/.." includes="**/rebel.xml"/ -->
+         <fileset dir="${GeoRaptor.srcdir}"    includes="**/*.properties"/>
+         <!-- Include Java source for debugging purposes -->
+         <fileset dir="${GeoRaptor.srcdir}"    includes="**/*.java"/>
+      </jar>
+      <copy file="${GeoRaptor.deploy}/org.GeoRaptor.jar" 
+          tofile="${SQLDeveloper.home}/sqldeveloper/extensions/org.GeoRaptor.jar"/>
+      <copy file="${GeoRaptor.srcdir}/org/GeoRaptor/Snippets/GeoRaptorSnippets.xml" 
+          tofile="${SQLDeveloper.home}/sqldeveloper/extensions/GeoRaptorLibs/GeoRaptorSnippets.xml"/>      
+   </target>
+
+   <target name="createInstallJAR" depends="createJAR">
+      <mkdir dir="${GeoRaptor.deploy}/GeoRaptorLibs"/>
+      <mkdir dir="${GeoRaptor.dist}"/>
+      <copy file="${GeoRaptor.srcdir}/META-INF/bundle.xml"
+            tofile="${GeoRaptor.dist}/META-INF/bundle.xml">
+         <filterchain>
+            <replacetokens begintoken="#" endtoken="#">
+               <token key="VERSION" value="${GeoRaptor.version}"/>
+            </replacetokens>
+         </filterchain>
+      </copy>
+      <copy file="${GeoRaptor.home}/install.xml"
+            tofile="${GeoRaptor.dist}/install.xml">
+         <filterchain>
+            <replacetokens begintoken="#" endtoken="#">
+               <token key="VERSION" value="${GeoRaptor.version}"/>
+               <token key="FOLDER"  value="${GeoRaptor.folder}"/>
+            </replacetokens>
+         </filterchain>
+      </copy>
+      <copy file="${GeoRaptor.home}/earlyaccess.xml"
+            tofile="${GeoRaptor.dist}/earlyaccess.xml">
+         <filterchain>
+            <replacetokens begintoken="#" endtoken="#">
+               <token key="VERSION" value="${GeoRaptor.version}"/>
+            </replacetokens>
+         </filterchain>
+      </copy>
+      <!-- copy require additional libraries -->
+      <copy file="${GeoRaptor.srcdir}/org/GeoRaptor/Snippets/GeoRaptorSnippets.xml"
+          tofile="${GeoRaptor.deploy}/GeoRaptorLibs/GeoRaptorSnippets.xml"/>      
+      <copy file="${GeoRaptor.libdir}/sdoutl.jar"            tofile="${GeoRaptor.deploy}/GeoRaptorLibs/sdoutl.jar"/>
+      <copy file="${GeoRaptor.libdir}/sdotopo.jar"           tofile="${GeoRaptor.deploy}/GeoRaptorLibs/sdotopo.jar"/>
+      <copy file="${GeoRaptor.libdir}/xBaseJMicro.jar"       tofile="${GeoRaptor.deploy}/GeoRaptorLibs/xBaseJMicro.jar"/>
+      <copy file="${JTS.libdir}/jts.jar"                     tofile="${GeoRaptor.deploy}/GeoRaptorLibs/jts.jar"/>
+      <jar destfile="${GeoRaptor.dist}/org.GeoRaptor-install.jar">
+         <fileset dir="${GeoRaptor.deploy}" includes="**/org.GeoRaptor.jar"/>
+         <fileset dir="${GeoRaptor.deploy}" includes="**/sdoutl.jar"/>
+         <fileset dir="${GeoRaptor.deploy}" includes="**/sdotopo.jar"/>
+         <fileset dir="${GeoRaptor.deploy}" includes="**/jts.jar"/>
+         <fileset dir="${GeoRaptor.deploy}" includes="**/xBaseJMicro.jar"/>
+         <fileset dir="${GeoRaptor.deploy}" includes="**/GeoRaptorSnippets.xml"/>
+         <fileset dir="${GeoRaptor.dist}"   includes="**/META-INF/bundle.xml"/>
+      </jar>
+   </target>
+
+   <target name="DevBuild"     depends="devversion, createInstallJAR"/>
+
+   <target name="ReleaseBuild" depends="releaseversion,createInstallJAR"/>
+
+   <target name="WebReleaseInstall" depends="ReleaseBuild">
+    <pathelement location="${GeoRaptor.home}/jsch.jar"/>
+    <scp file="${GeoRaptor.dist}/org.GeoRaptor-install.jar" 
+         todir="${scp.user},georaptor@web.sourceforge.net:/home/frs/project/georaptor/GeoRaptor/${GeoRaptor.folder}" 
+         password="${scp.pass}"
+         trust="true"
+         verbose="true"/>
+    <scp file="${GeoRaptor.dist}/install.xml" 
+         todir="${scp.user},georaptor@web.sourceforge.net:/home/project-web/georaptor/htdocs" 
+         password="${scp.pass}"
+         trust="true"
+         verbose="true"/>
+   </target>
+   <target name="WebEarlyAccessInstall" depends="DevBuild">
+    <scp file="${GeoRaptor.dist}/org.GeoRaptor-install.jar" 
+         todir="${scp.user},georaptor@web.sourceforge.net:/home/frs/project/georaptor/GeoRaptor/early-access" 
+         password="${scp.pass}"
+         trust="true"
+         verbose="true"/>
+    <scp file="${GeoRaptor.dist}/earlyaccess.xml" 
+         todir="${scp.user},georaptor@web.sourceforge.net:/home/project-web/georaptor/htdocs" 
+         password="${scp.pass}"
+         trust="true"
+         verbose="true"/>
+  </target>
+</project>
+
+

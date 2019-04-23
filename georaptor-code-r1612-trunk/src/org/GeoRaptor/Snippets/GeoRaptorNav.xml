@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<navigator RESOURCE_FILE="oracle.dbtools.raptor.navigator.OracleNavigatorResource"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="navigator.xsd">
+    <objectType connType="Oracle" id="SPATIAL_NETWORK" weight="104.0" includesSyns="true">
+        <folder type="SPATIAL_NETWORK_FOLDER">
+            <icon RSKEY="TABLE_FOLDER_ICON"/>
+            <label RSKEY="Spatial Networks"/>
+            <queries>
+                <query minversion="8">
+                    <sql constrained="true">
+                        <![CDATA[select network 
+                                   from all_sdo_network_metadata
+                                  where owner = :SCHEMA]]>
+                    </sql>
+                </query>
+                <columns>
+                    <column filterable="true" sortable="true" id="NETWORKNAME">
+                        <colName>
+                            <![CDATA[NETWORK]]>
+                        </colName>
+                    </column>
+                    <column filterable="true" sortable="true" id="NAME">
+                        <colName>
+                            <![CDATA[NETWORK]]>
+                        </colName>
+                    </column>
+                </columns>
+            </queries>
+        </folder>
+        <node>
+            <icon RSKEY="OracleIcons.TABLE"/>
+        </node>
+    </objectType>
+  <objectType connType="Oracle" id="SPATIAL_TABLE" weight="101.0" includesSyns="true">
+    <folder type="TABLE_FOLDER">
+      <icon RSKEY="TABLE_FOLDER_ICON"/>
+      <label RSKEY="Spatial Tables"/>
+      <queries id="nav.geotables.queries">
+        <query minversion="9" id="nav.geotables.query.9.tab" requiredAccessObjects="sys.tab$,sys.external_tab$">
+          <sql constrained="false">
+            <![CDATA[
+select * from (
+  SELECT o.OBJECT_NAME, o.OBJECT_ID ,'' short_name, decode(bitand(t.property, 32), 32, 'YES', 'NO') partitioned,
+                decode(bitand(t.property, 64), 64, 'IOT',
+               decode(bitand(t.property, 512), 512, 'IOT_OVERFLOW',
+               decode(bitand(t.flags, 536870912), 536870912, 'IOT_MAPPING', null))) iot_type, 
+         o.OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, case when xt.obj# is null then 'N' else 'Y' end EXTERNAL
+    FROM SYS.ALL_OBJECTS O ,sys.tab$ t, sys.external_tab$ xt
+    WHERE O.OWNER = :SCHEMA
+    and   o.object_id = t.obj#(+)
+    and   o.object_id = xt.obj#(+)
+    AND O.OBJECT_TYPE = 'TABLE' 
+union all
+SELECT OBJECT_NAME, OBJECT_ID , syn.SYNONYM_NAME short_NAME, decode(bitand(t.property, 32), 32, 'YES', 'NO') partitioned,
+                decode(bitand(t.property, 64), 64, 'IOT',
+               decode(bitand(t.property, 512), 512, 'IOT_OVERFLOW',
+               decode(bitand(t.flags, 536870912), 536870912, 'IOT_MAPPING', null))) iot_type, 
+       SYN.TABLE_OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, case when xt.obj# is null then 'N' else 'Y' end EXTERNAL
+              FROM SYS.ALL_OBJECTS O, sys.user_synonyms syn,sys.tab$ t, sys.external_tab$ xt
+              WHERE  syn.table_owner = o.owner
+              and    syn.TABLE_NAME = o.object_NAME
+              and    o.object_id = t.obj#
+    		  and   o.object_id = xt.obj#(+)
+              and    o.object_type = 'TABLE'
+              and    :INCLUDE_SYNS = 1
+              and    :SCHEMA = USER
+) NATURAL JOIN
+(SELECT DISTINCT TABLE_NAME OBJECT_NAME 
+   FROM ALL_TAB_COLUMNS 
+  WHERE DATA_TYPE = 'SDO_GEOMETRY'
+    AND OWNER = :SCHEMA)
+]]>
+          </sql>
+        </query>
+        <query minversion="10" id="nav.geotables.query.10.tab" requiredAccessObjects="sys.tab$,sys.external_tab$">
+          <sql constrained="false">
+            <![CDATA[
+select * from (
+  SELECT o.OBJECT_NAME, o.OBJECT_ID ,'' short_name, decode(bitand(t.property, 32), 32, 'YES', 'NO') partitioned,
+                decode(bitand(t.property, 64), 64, 'IOT',
+               decode(bitand(t.property, 512), 512, 'IOT_OVERFLOW',
+               decode(bitand(t.flags, 536870912), 536870912, 'IOT_MAPPING', null))) iot_type, 
+         o.OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, case when xt.obj# is null then 'N' else 'Y' end EXTERNAL
+    FROM SYS.ALL_OBJECTS O ,sys.tab$ t, sys.external_tab$ xt
+    WHERE O.OWNER = :SCHEMA
+    and   o.object_id = t.obj#(+)
+    and   o.object_id = xt.obj#(+)
+    AND O.OBJECT_TYPE = 'TABLE' 
+union all
+SELECT OBJECT_NAME, OBJECT_ID , syn.SYNONYM_NAME short_NAME, decode(bitand(t.property, 32), 32, 'YES', 'NO') partitioned,
+                decode(bitand(t.property, 64), 64, 'IOT',
+               decode(bitand(t.property, 512), 512, 'IOT_OVERFLOW',
+               decode(bitand(t.flags, 536870912), 536870912, 'IOT_MAPPING', null))) iot_type, 
+       SYN.TABLE_OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, case when xt.obj# is null then 'N' else 'Y' end EXTERNAL
+              FROM SYS.ALL_OBJECTS O, sys.user_synonyms syn,sys.tab$ t, sys.external_tab$ xt
+              WHERE  syn.table_owner = o.owner
+              and    syn.TABLE_NAME = o.object_NAME
+              and    o.object_id = t.obj#
+    		  and   o.object_id = xt.obj#(+)
+              and    o.object_type = 'TABLE'
+              and    :INCLUDE_SYNS = 1
+              and    :SCHEMA = USER
+) NATURAL JOIN
+(SELECT DISTINCT TABLE_NAME OBJECT_NAME 
+   FROM ALL_TAB_COLUMNS 
+  WHERE DATA_TYPE = 'SDO_GEOMETRY'
+    AND OWNER = :SCHEMA)
+]]>
+          </sql>
+          <columns>
+            <column filterable="true" sortable="false" id="Exclude Recycle Bin" defaultFilter="true">
+              <type>
+                <![CDATA[COMPLEX_PREDICATE]]>
+              </type>
+              <colName>
+                <![CDATA[/**/OBJECT_NAME NOT IN (SELECT OBJECT_NAME FROM RECYCLEBIN)
+                         AND not object_name like 'BIN$%' ]]>
+              </colName>
+            </column>
+          </columns>
+        </query>
+        <query minversion="9" id="nav.geotables.query.9">
+          <sql constrained="false">
+            <![CDATA[
+select * from (
+  SELECT o.OBJECT_NAME, o.OBJECT_ID ,'' short_name, NULL partitioned,
+                NULL iot_type, 
+         o.OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, NULL EXTERNAL
+    FROM SYS.ALL_OBJECTS O 
+    WHERE O.OWNER = :SCHEMA
+    AND O.OBJECT_TYPE = 'TABLE' 
+union all
+SELECT OBJECT_NAME, OBJECT_ID , syn.SYNONYM_NAME short_NAME, NULL partitioned,
+                NULL iot_type, 
+       SYN.TABLE_OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, NULL EXTERNAL
+              FROM SYS.ALL_OBJECTS O, sys.user_synonyms syn
+              WHERE  syn.table_owner = o.owner
+              and    syn.TABLE_NAME = o.object_NAME
+              and    o.object_type = 'TABLE'
+              and    :INCLUDE_SYNS = 1
+              and    :SCHEMA = USER
+)
+]]>
+          </sql>
+        </query>
+        <query minversion="10" id="nav.geotables.query.10">
+          <sql constrained="false">
+            <![CDATA[
+select * from (
+  SELECT o.OBJECT_NAME, o.OBJECT_ID ,'' short_name, NULL partitioned,
+                NULL iot_type, 
+         o.OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, NULL EXTERNAL
+    FROM SYS.ALL_OBJECTS O 
+    WHERE O.OWNER = :SCHEMA
+    AND O.OBJECT_TYPE = 'TABLE' 
+union all
+SELECT OBJECT_NAME, OBJECT_ID , syn.SYNONYM_NAME short_NAME, NULL partitioned,
+                NULL iot_type, 
+       SYN.TABLE_OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, NULL EXTERNAL
+              FROM SYS.ALL_OBJECTS O, sys.user_synonyms syn
+              WHERE  syn.table_owner = o.owner
+              and    syn.TABLE_NAME = o.object_NAME
+              and    o.object_type = 'TABLE'
+              and    :INCLUDE_SYNS = 1
+              and    :SCHEMA = USER
+) NATURAL JOIN
+(SELECT DISTINCT TABLE_NAME OBJECT_NAME 
+   FROM ALL_TAB_COLUMNS 
+  WHERE DATA_TYPE = 'SDO_GEOMETRY'
+    AND OWNER = :SCHEMA)
+]]>
+          </sql>
+          <columns>
+            <column filterable="true" sortable="false" id="Exclude Recycle Bin" defaultFilter="true">
+              <type>
+                <![CDATA[COMPLEX_PREDICATE]]>
+              </type>
+              <colName>
+                <![CDATA[/**/OBJECT_NAME NOT IN (SELECT OBJECT_NAME FROM RECYCLEBIN)
+                         AND not object_name like 'BIN$%' ]]>
+              </colName>
+            </column>
+          </columns>
+        </query>
+          <binds></binds>
+          <columns>
+            <column id="ID">
+              <colName>
+                <![CDATA[OBJECT_ID]]>
+              </colName>
+            </column>
+            <column filterable="true" sortable="true" id="NAME">
+              <colName>
+                <![CDATA[OBJECT_NAME]]>
+              </colName>
+            </column>
+            <column filterable="true" sortable="true" id="SYNONYM_NAME">
+              <colName>
+                <![CDATA[SHORT_NAME]]>
+              </colName>
+            </column>
+            <column filterable="false" sortable="true" id="INTERNAL_NAME">
+              <colName>
+                <![CDATA[SHORT_NAME]]>
+              </colName>
+            </column>
+            <column filterable="false" sortable="true" id="GENERATED">
+              <colName>
+                <![CDATA[GENERATED]]>
+              </colName>
+            </column>
+            <column filterable="false" sortable="false" id="SCHEMA">
+              <colName>
+                <![CDATA[OBJECT_OWNER]]>
+              </colName>
+            </column>
+            <column filterable="true" sortable="false" id="Exclude MVs">
+              <type>
+                <![CDATA[COMPLEX_PREDICATE]]>
+              </type>
+              <colName>
+                <![CDATA[/**/NOT EXISTS (SELECT 1 FROM SYS.ALL_MVIEWS m WHERE MVIEW_NAME = OBJECT_NAME AND m.OWNER = OWNER)]]>
+              </colName>
+            </column>
+            <column filterable="true" sortable="false" id="Exclude AQs">
+              <type>
+                <![CDATA[COMPLEX_PREDICATE]]>
+              </type>
+              <colName>
+                <![CDATA[/**/NOT EXISTS (SELECT 1 from all_queue_tables q WHERE QUEUE_TABLE = OBJECT_NAME AND OWNER = q.OWNER)
+	                 AND NOT (   object_name like 'AQ$_%_G' 
+            or   object_name like 'AQ$_%_H' 
+            or   object_name like 'AQ$_%_I'
+            or   object_name like 'AQ$_%_S'
+            or   object_name like 'AQ$_%_T' )]]>
+              </colName>
+            </column>
+            <column filterable="true" sortable="false" id="Exclude Generated Objects">
+              <type>
+                <![CDATA[COMPLEX_PREDICATE]]>
+              </type>
+              <colName>
+                <![CDATA[/**/GENERATED = 'N' AND NOT object_name like 'DR$%']]>
+              </colName>
+            </column>
+          </columns>
+          <optionalBinds>
+            <bind filterable="true" sortable="true" id="CREATED">
+              <type>
+                <![CDATA[DATE]]>
+              </type>
+              <prompt>
+                <![CDATA[Created Date]]>
+              </prompt>
+              <tooltip>
+                <![CDATA[
+                                Creation Date to search by.
+                             ]]>
+              </tooltip>
+            </bind>
+            <bind filterable="true" sortable="true" id="LAST_DDL_TIME">
+              <type>
+                <![CDATA[DATE]]>
+              </type>
+              <prompt>
+                <![CDATA[Modified Date]]>
+              </prompt>
+              <tooltip>
+                <![CDATA[
+                                Date of the last modification to the DDL.
+                             ]]>
+              </tooltip>
+            </bind>
+          </optionalBinds>
+	</queries>
+    </folder>
+    <node>
+      <icon RSKEY="OracleIcons.TABLE"/>
+      <childType id="COLUMN">
+        <icon RSKEY="COLUMN_ICON"/>
+        <queries id="nav.columns">
+          <query minversion="8" id="nav.columns">
+            <sql>
+              <![CDATA[SELECT COLUMN_NAME
+      FROM SYS.ALL_TAB_COLUMNS
+      WHERE OWNER = :SCHEMA
+      AND TABLE_NAME = :PARENT_NAME
+      ORDER BY COLUMN_ID]]>
+            </sql>
+            <columns>
+              <column id="NAME">
+                <colName>
+                    <![CDATA[COLUMN_NAME]]>
+                  </colName>
+              </column>
+            </columns>
+          </query>
+        </queries>
+      </childType>
+      <childType id="PARTITION">
+        <icon RSKEY="TABLE_PARTITION_ICON"/>
+        <queries id="nav.partitions">
+          <query minversion="8" id="nav.partitions">
+            <sql>
+              <![CDATA[SELECT PARTITION_NAME
+      FROM SYS.ALL_TAB_PARTITIONS
+      WHERE TABLE_OWNER = :SCHEMA
+      AND TABLE_NAME = :PARENT_NAME
+      ORDER BY PARTITION_NAME]]>
+            </sql>
+            <columns>
+              <column id="NAME">
+                <colName>
+                    <![CDATA[PARTITION_NAME]]>
+                  </colName>
+              </column>
+            </columns>
+          </query>
+        </queries>
+      </childType>
+    </node>
+  </objectType>
+  <objectType connType="Oracle" id="UNREG_SPATIAL_TABLE" weight="102.0" includesSyns="true">
+    <folder type="TABLE_FOLDER">
+      <icon RSKEY="TABLE_FOLDER_ICON"/>
+      <label RSKEY="Spatial Tables(Unregistered)"/>
+      <queries id="nav.geotables.queries">
+        <query minversion="9" id="nav.unreg.geotables.query.9.tab" requiredAccessObjects="sys.tab$,sys.external_tab$">
+          <sql constrained="false">
+            <![CDATA[
+select * from (
+  SELECT o.OBJECT_NAME, o.OBJECT_ID ,'' short_name, decode(bitand(t.property, 32), 32, 'YES', 'NO') partitioned,
+                decode(bitand(t.property, 64), 64, 'IOT',
+               decode(bitand(t.property, 512), 512, 'IOT_OVERFLOW',
+               decode(bitand(t.flags, 536870912), 536870912, 'IOT_MAPPING', null))) iot_type, 
+         o.OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, case when xt.obj# is null then 'N' else 'Y' end EXTERNAL
+    FROM SYS.ALL_OBJECTS O ,sys.tab$ t, sys.external_tab$ xt
+    WHERE O.OWNER = :SCHEMA
+    and   o.object_id = t.obj#(+)
+    and   o.object_id = xt.obj#(+)
+    AND O.OBJECT_TYPE = 'TABLE' 
+union all
+SELECT OBJECT_NAME, OBJECT_ID , syn.SYNONYM_NAME short_NAME, decode(bitand(t.property, 32), 32, 'YES', 'NO') partitioned,
+                decode(bitand(t.property, 64), 64, 'IOT',
+               decode(bitand(t.property, 512), 512, 'IOT_OVERFLOW',
+               decode(bitand(t.flags, 536870912), 536870912, 'IOT_MAPPING', null))) iot_type, 
+       SYN.TABLE_OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, case when xt.obj# is null then 'N' else 'Y' end EXTERNAL
+              FROM SYS.ALL_OBJECTS O, sys.user_synonyms syn,sys.tab$ t, sys.external_tab$ xt
+              WHERE  syn.table_owner = o.owner
+              and    syn.TABLE_NAME = o.object_NAME
+              and    o.object_id = t.obj#
+    		  and   o.object_id = xt.obj#(+)
+              and    o.object_type = 'TABLE'
+              and    :INCLUDE_SYNS = 1
+              and    :SCHEMA = USER
+) NATURAL JOIN
+(SELECT TABLE_NAME OBJECT_NAME
+FROM (
+(SELECT TABLE_NAME, COLUMN_NAME
+   FROM ALL_TAB_COLUMNS
+  WHERE OWNER = :SCHEMA
+    AND DATA_TYPE = 'SDO_GEOMETRY'
+  MINUS
+ SELECT TABLE_NAME, COLUMN_NAME
+   FROM ALL_SDO_GEOM_METADATA
+  WHERE OWNER = :SCHEMA)
+))
+]]>
+          </sql>
+        </query>
+        <query minversion="10" id="nav.unreg.geotables.query.10.tab" requiredAccessObjects="sys.tab$,sys.external_tab$">
+          <sql constrained="false">
+            <![CDATA[
+select * from (
+  SELECT o.OBJECT_NAME, o.OBJECT_ID ,'' short_name, decode(bitand(t.property, 32), 32, 'YES', 'NO') partitioned,
+                decode(bitand(t.property, 64), 64, 'IOT',
+               decode(bitand(t.property, 512), 512, 'IOT_OVERFLOW',
+               decode(bitand(t.flags, 536870912), 536870912, 'IOT_MAPPING', null))) iot_type, 
+         o.OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, case when xt.obj# is null then 'N' else 'Y' end EXTERNAL
+    FROM SYS.ALL_OBJECTS O ,sys.tab$ t, sys.external_tab$ xt
+    WHERE O.OWNER = :SCHEMA
+    and   o.object_id = t.obj#(+)
+    and   o.object_id = xt.obj#(+)
+    AND O.OBJECT_TYPE = 'TABLE' 
+union all
+SELECT OBJECT_NAME, OBJECT_ID , syn.SYNONYM_NAME short_NAME, decode(bitand(t.property, 32), 32, 'YES', 'NO') partitioned,
+                decode(bitand(t.property, 64), 64, 'IOT',
+               decode(bitand(t.property, 512), 512, 'IOT_OVERFLOW',
+               decode(bitand(t.flags, 536870912), 536870912, 'IOT_MAPPING', null))) iot_type, 
+       SYN.TABLE_OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, case when xt.obj# is null then 'N' else 'Y' end EXTERNAL
+              FROM SYS.ALL_OBJECTS O, sys.user_synonyms syn,sys.tab$ t, sys.external_tab$ xt
+              WHERE  syn.table_owner = o.owner
+              and    syn.TABLE_NAME = o.object_NAME
+              and    o.object_id = t.obj#
+    		  and   o.object_id = xt.obj#(+)
+              and    o.object_type = 'TABLE'
+              and    :INCLUDE_SYNS = 1
+              and    :SCHEMA = USER
+) NATURAL JOIN
+(SELECT TABLE_NAME OBJECT_NAME
+FROM (
+(SELECT TABLE_NAME, COLUMN_NAME
+   FROM ALL_TAB_COLUMNS
+  WHERE OWNER = :SCHEMA
+    AND DATA_TYPE = 'SDO_GEOMETRY'
+  MINUS
+ SELECT TABLE_NAME, COLUMN_NAME
+   FROM ALL_SDO_GEOM_METADATA
+  WHERE OWNER = :SCHEMA)
+))
+]]>
+          </sql>
+          <columns>
+            <column filterable="true" sortable="false" id="Exclude Recycle Bin" defaultFilter="true">
+              <type>
+                <![CDATA[COMPLEX_PREDICATE]]>
+              </type>
+              <colName>
+                <![CDATA[/**/OBJECT_NAME NOT IN (SELECT OBJECT_NAME FROM RECYCLEBIN)
+                         AND not object_name like 'BIN$%' ]]>
+              </colName>
+            </column>
+          </columns>
+        </query>
+        <query minversion="9" id="nav.unreg.geotables.query.9">
+          <sql constrained="false">
+            <![CDATA[
+select * from (
+  SELECT o.OBJECT_NAME, o.OBJECT_ID ,'' short_name, NULL partitioned,
+                NULL iot_type, 
+         o.OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, NULL EXTERNAL
+    FROM SYS.ALL_OBJECTS O 
+    WHERE O.OWNER = :SCHEMA
+    AND O.OBJECT_TYPE = 'TABLE' 
+union all
+SELECT OBJECT_NAME, OBJECT_ID , syn.SYNONYM_NAME short_NAME, NULL partitioned,
+                NULL iot_type, 
+       SYN.TABLE_OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, NULL EXTERNAL
+              FROM SYS.ALL_OBJECTS O, sys.user_synonyms syn
+              WHERE  syn.table_owner = o.owner
+              and    syn.TABLE_NAME = o.object_NAME
+              and    o.object_type = 'TABLE'
+              and    :INCLUDE_SYNS = 1
+              and    :SCHEMA = USER
+)
+]]>
+          </sql>
+        </query>
+        <query minversion="10" id="nav.unreg.geotables.query.10">
+          <sql constrained="false">
+            <![CDATA[
+select * from (
+  SELECT o.OBJECT_NAME, o.OBJECT_ID ,'' short_name, NULL partitioned,
+                NULL iot_type, 
+         o.OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, NULL EXTERNAL
+    FROM SYS.ALL_OBJECTS O 
+    WHERE O.OWNER = :SCHEMA
+    AND O.OBJECT_TYPE = 'TABLE' 
+union all
+SELECT OBJECT_NAME, OBJECT_ID , syn.SYNONYM_NAME short_NAME, NULL partitioned,
+                NULL iot_type, 
+       SYN.TABLE_OWNER OBJECT_OWNER, o.CREATED, o.LAST_DDL_TIME, O.GENERATED, O.TEMPORARY, NULL EXTERNAL
+              FROM SYS.ALL_OBJECTS O, sys.user_synonyms syn
+              WHERE  syn.table_owner = o.owner
+              and    syn.TABLE_NAME = o.object_NAME
+              and    o.object_type = 'TABLE'
+              and    :INCLUDE_SYNS = 1
+              and    :SCHEMA = USER
+) NATURAL JOIN
+(SELECT TABLE_NAME OBJECT_NAME
+FROM (
+(SELECT TABLE_NAME, COLUMN_NAME
+   FROM ALL_TAB_COLUMNS
+  WHERE OWNER = :SCHEMA
+    AND DATA_TYPE = 'SDO_GEOMETRY'
+  MINUS
+ SELECT TABLE_NAME, COLUMN_NAME
+   FROM ALL_SDO_GEOM_METADATA
+  WHERE OWNER = :SCHEMA)
+))
+]]>
+          </sql>
+          <columns>
+            <column filterable="true" sortable="false" id="Exclude Recycle Bin" defaultFilter="true">
+              <type>
+                <![CDATA[COMPLEX_PREDICATE]]>
+              </type>
+              <colName>
+                <![CDATA[/**/OBJECT_NAME NOT IN (SELECT OBJECT_NAME FROM RECYCLEBIN)
+                         AND not object_name like 'BIN$%' ]]>
+              </colName>
+            </column>
+          </columns>
+        </query>
+          <binds></binds>
+          <columns>
+            <column id="ID">
+              <colName>
+                <![CDATA[OBJECT_ID]]>
+              </colName>
+            </column>
+            <column filterable="true" sortable="true" id="NAME">
+              <colName>
+                <![CDATA[OBJECT_NAME]]>
+              </colName>
+            </column>
+            <column filterable="true" sortable="true" id="SYNONYM_NAME">
+              <colName>
+                <![CDATA[SHORT_NAME]]>
+              </colName>
+            </column>
+            <column filterable="false" sortable="true" id="INTERNAL_NAME">
+              <colName>
+                <![CDATA[SHORT_NAME]]>
+              </colName>
+            </column>
+            <column filterable="false" sortable="true" id="GENERATED">
+              <colName>
+                <![CDATA[GENERATED]]>
+              </colName>
+            </column>
+            <column filterable="false" sortable="false" id="SCHEMA">
+              <colName>
+                <![CDATA[OBJECT_OWNER]]>
+              </colName>
+            </column>
+            <column filterable="true" sortable="false" id="Exclude MVs">
+              <type>
+                <![CDATA[COMPLEX_PREDICATE]]>
+              </type>
+              <colName>
+                <![CDATA[/**/NOT EXISTS (SELECT 1 FROM SYS.ALL_MVIEWS m WHERE MVIEW_NAME = OBJECT_NAME AND m.OWNER = OWNER)]]>
+              </colName>
+            </column>
+            <column filterable="true" sortable="false" id="Exclude AQs">
+              <type>
+                <![CDATA[COMPLEX_PREDICATE]]>
+              </type>
+              <colName>
+                <![CDATA[/**/NOT EXISTS (SELECT 1 from all_queue_tables q WHERE QUEUE_TABLE = OBJECT_NAME AND OWNER = q.OWNER)
+	                 AND NOT (   object_name like 'AQ$_%_G' 
+            or   object_name like 'AQ$_%_H' 
+            or   object_name like 'AQ$_%_I'
+            or   object_name like 'AQ$_%_S'
+            or   object_name like 'AQ$_%_T' )]]>
+              </colName>
+            </column>
+            <column filterable="true" sortable="false" id="Exclude Generated Objects">
+              <type>
+                <![CDATA[COMPLEX_PREDICATE]]>
+              </type>
+              <colName>
+                <![CDATA[/**/GENERATED = 'N' AND NOT object_name like 'DR$%']]>
+              </colName>
+            </column>
+          </columns>
+          <optionalBinds>
+            <bind filterable="true" sortable="true" id="CREATED">
+              <type>
+                <![CDATA[DATE]]>
+              </type>
+              <prompt>
+                <![CDATA[Created Date]]>
+              </prompt>
+              <tooltip>
+                <![CDATA[
+                                Creation Date to search by.
+                             ]]>
+              </tooltip>
+            </bind>
+            <bind filterable="true" sortable="true" id="LAST_DDL_TIME">
+              <type>
+                <![CDATA[DATE]]>
+              </type>
+              <prompt>
+                <![CDATA[Modified Date]]>
+              </prompt>
+              <tooltip>
+                <![CDATA[
+                                Date of the last modification to the DDL.
+                             ]]>
+              </tooltip>
+            </bind>
+          </optionalBinds>
+	</queries>
+    </folder>
+    <node>
+      <icon RSKEY="OracleIcons.TABLE"/>
+      <childType id="COLUMN">
+        <icon RSKEY="COLUMN_ICON"/>
+        <queries id="nav.columns">
+          <query minversion="8" id="nav.columns">
+            <sql>
+              <![CDATA[SELECT COLUMN_NAME
+      FROM SYS.ALL_TAB_COLUMNS
+      WHERE OWNER = :SCHEMA
+      AND TABLE_NAME = :PARENT_NAME
+      ORDER BY COLUMN_ID]]>
+            </sql>
+            <columns>
+              <column id="NAME">
+                <colName>
+                    <![CDATA[COLUMN_NAME]]>
+                  </colName>
+              </column>
+            </columns>
+          </query>
+        </queries>
+      </childType>
+      <childType id="PARTITION">
+        <icon RSKEY="TABLE_PARTITION_ICON"/>
+        <queries id="nav.partitions">
+          <query minversion="8" id="nav.partitions">
+            <sql>
+              <![CDATA[SELECT PARTITION_NAME
+      FROM SYS.ALL_TAB_PARTITIONS
+      WHERE TABLE_OWNER = :SCHEMA
+      AND TABLE_NAME = :PARENT_NAME
+      ORDER BY PARTITION_NAME]]>
+            </sql>
+            <columns>
+              <column id="NAME">
+                <colName>
+                    <![CDATA[PARTITION_NAME]]>
+                  </colName>
+              </column>
+            </columns>
+          </query>
+        </queries>
+      </childType>
+    </node>
+  </objectType>
+</navigator>

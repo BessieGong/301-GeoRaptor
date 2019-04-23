@@ -1,0 +1,50 @@
+<extension id="org.GeoRaptor" version="#VERSION#" esdk-version="1.0"
+           rsbundle-class="org.GeoRaptor.Res"
+           xmlns="http://jcp.org/jsr/198/extension-manifest">
+  <name>GeoRaptor</name>
+  <dependencies>
+    <import>oracle.ide.db</import>
+    <import>oracle.ide</import>
+    <import>oracle.sqldeveloper</import>
+    <import>oracle.sqldeveloper.worksheet</import>
+    <import>oracle.sqldeveloper.snippet</import>
+  </dependencies>
+  <classpaths>
+    <classpath>GeoRaptorLibs/sdoapi.jar</classpath>
+    <classpath>GeoRaptorLibs/sdoutl.jar</classpath>
+    <classpath>GeoRaptorLibs/sdotopo.jar</classpath>
+    <classpath>GeoRaptorLibs/jts.jar</classpath>
+    <classpath>GeoRaptorLibs/xBaseJMicro.jar</classpath>
+  </classpaths>
+  <hooks>
+    <sqldev-navigator-hook xmlns="http://xmlns.oracle.com/sqldeveloper/sqldev-navigator">
+      <descriptor>/org/GeoRaptor/xml/navigator.xml</descriptor>
+    </sqldev-navigator-hook>
+    <jdeveloper-hook xmlns="http://xmlns.oracle.com/jdeveloper/1013/extension">      
+      <addins>
+        <addin>org.GeoRaptor.PreferenceAddin</addin>
+        <addin>org.GeoRaptor.SpatialView.JDevInt.AnAddinSV</addin>
+	<addin>org.GeoRaptor.Snippets.GeoRaptorSnippetsAddin</addin>
+        <addin>org.GeoRaptor.SpatialView.JDevInt.SpatialColRendererAddin</addin>
+        <addin>org.GeoRaptor.Menu</addin>
+      </addins>
+      <gallery>
+        <item>
+          <name>org.GeoRaptor.MenuViewController</name>
+          <description>Oracle Spatial extension for Oracle SQL Developer</description>
+          <help>Oracle Spatial extension for Oracle SQL Developer</help>
+          <category>General</category>
+          <folder>GeoRaptor</folder>
+          <parameter>java.lang.String</parameter>
+          <technologyKey>ESDK</technologyKey>
+        </item>
+      </gallery>
+    </jdeveloper-hook>
+     <settings-ui-hook xmlns="http://xmlns.oracle.com/ide/extension">
+      <page id="Preferences" parent-idref="/preferences">
+        <label>GeoRaptor</label>
+        <traversable-class>org.GeoRaptor.PreferencesPanel</traversable-class>
+      </page>
+    </settings-ui-hook>
+  </hooks>
+</extension>
