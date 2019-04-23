@@ -1076,7 +1076,7 @@ public class ManageSpatialIndex extends javax.swing.JDialog
                     this.errorDialogHandler.showErrorDialog(this, 
                                                          "ERROR_MESSAGE_GEO_INDEX_EXISTS",
                                                          spatialIndexName /* Note includes status */,
-                                                         MetadataTool.objectString(this.schemaName,this.objectName,this.geoColumn));
+                                                         Strings.objectString(this.schemaName,this.objectName,this.geoColumn));
                 }
                 return false;
             }
@@ -1085,7 +1085,7 @@ public class ManageSpatialIndex extends javax.swing.JDialog
             //
             try {
                 if (!MetadataTool.hasGeomMetadataEntry(conn,this.schemaName,this.objectName,this.geoColumn)) {
-                    this.errorDialogHandler.showErrorDialog(this,"ERROR_MESSAGE_NO_RECORD_MD", MetadataTool.objectString(_schemaName,_objectName,_columnName));
+                    this.errorDialogHandler.showErrorDialog(this,"ERROR_MESSAGE_NO_RECORD_MD", Strings.objectString(_schemaName,_objectName,_columnName));
                     if ( this.isVisible() ) this.setAlwaysOnTop(true);
                     return false;
                 }
@@ -1094,7 +1094,7 @@ public class ManageSpatialIndex extends javax.swing.JDialog
                                                    "OBJECT_RETRIEVAL_ERROR",
                                                    e.getLocalizedMessage(),
                                                    this.propertyManager.getMsg("OBJECT_SDO_GEOM_METADATA") +
-                                                   "(" + MetadataTool.objectString(_schemaName,_objectName,_columnName) +")");
+                                                   "(" + Strings.objectString(_schemaName,_objectName,_columnName) +")");
               return false;
             }
 
@@ -1232,7 +1232,7 @@ public class ManageSpatialIndex extends javax.swing.JDialog
         } catch (Exception ex) {
             this.errorDialogHandler.showErrorDialog(this, 
                                                    "ERROR_MESSAGE_RETRIEVING_INDEX_NAME", 
-                                                    MetadataTool.objectString(_schemaName,_tableName,_columnName) + "\n" + ex.toString());
+                                                   Strings.objectString(_schemaName,_tableName,_columnName) + "\n" + ex.toString());
             return null;
         }
         return indexName;
@@ -1465,7 +1465,7 @@ public class ManageSpatialIndex extends javax.swing.JDialog
                 //
                 this.errorDialogHandler.showErrorDialog(this,
                                                         "ERROR_MESSAGE_NO_TABLE_GEOMETRY_COLUMN", 
-                                                        MetadataTool.objectString(_schemaName,_tableName,_columnName));
+                                                        Strings.objectString(_schemaName,_tableName,_columnName));
                 return false;
             } else {
                 // If same as passed in columnName we are OK
@@ -1476,7 +1476,7 @@ public class ManageSpatialIndex extends javax.swing.JDialog
                     // Passed in column is not of type SDO_GEOMETRY?
                     this.errorDialogHandler.showErrorDialog(this,
                                                             "ERROR_MESSAGE_NOT_GEOMETRY_COLUMN", 
-                                                            MetadataTool.objectString(_schemaName,_tableName,_columnName));
+                                                            Strings.objectString(_schemaName,_tableName,_columnName));
                     return false;
                 }
             }
@@ -1486,7 +1486,7 @@ public class ManageSpatialIndex extends javax.swing.JDialog
             if (Strings.isEmpty(spatialIndexName) )
             {
                 this.errorDialogHandler.showErrorDialog(this,
-                                                     "NOTHING_TO_DROP", MetadataTool.objectString(_schemaName,_tableName,this.geoColumn));
+                                                     "NOTHING_TO_DROP", Strings.objectString(_schemaName,_tableName,this.geoColumn));
                 return false;
             }
             

@@ -1415,7 +1415,7 @@ public class MetadataPanel extends javax.swing.JDialog {
         this.tfSelectedSchema.setText(this.schemaName);
         this.objectName = _objectName;
         this.columnName = Strings.isEmpty(_columnName)?tableGeometryColumns.get(0):_columnName;
-        String fullObjectName = MetadataTool.objectString(this.schemaName,
+        String fullObjectName = Strings.objectString(this.schemaName,
                                                           this.objectName,
                                                           this.columnName,
                                                           Constants.TABLE_COLUMN_SEPARATOR);
@@ -1483,7 +1483,7 @@ public class MetadataPanel extends javax.swing.JDialog {
         // Update the name of the geometry column
         //
         this.columnName = cmbGeoColumns.getSelectedItem().toString();
-        String fullObjectName = MetadataTool.objectString(this.schemaName,
+        String fullObjectName = Strings.objectString(this.schemaName,
                                                           this.objectName,
                                                           this.columnName);
         this.tfSelectedObject.setText(fullObjectName + " (" + this.objectType + ")");
@@ -1613,7 +1613,7 @@ public class MetadataPanel extends javax.swing.JDialog {
         //
         JOptionPane.showMessageDialog(null,
                                       propertyManager.getMsg("MD_SUCCESSFUL_UPDATE", 
-                                                             MetadataTool.objectString(this.schemaName,
+                                    		 Strings.objectString(this.schemaName,
                                                                                        this.objectName,
                                                                                        targetColumn)).toString(),
                                       MainSettings.EXTENSION_NAME,

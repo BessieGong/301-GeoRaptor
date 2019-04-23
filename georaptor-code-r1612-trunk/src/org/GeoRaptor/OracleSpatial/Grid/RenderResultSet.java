@@ -34,7 +34,7 @@ import javax.swing.SwingUtilities;
 
 import oracle.dbtools.raptor.controls.grid.ResultSetTable;
 import oracle.dbtools.raptor.controls.grid.ResultSetTableModel;
-import oracle.dbtools.raptor.controls.grid.contextmenu.GridContextMenuItem;
+
 import oracle.dbtools.raptor.utils.Connections;
 
 import oracle.ide.Context;
@@ -90,8 +90,8 @@ import org.GeoRaptor.tools.Tools;
 import org.geotools.data.shapefile.shp.ShapeType;
 import org.geotools.util.logging.Logger;
 
-public class RenderResultSet 
-     extends GridContextMenuItem 
+
+public class RenderResultSet
 {
 
     private static final Logger LOGGER = org.geotools.util.logging.Logging.getLogger("org.GeoRaptor.OracleSpatial.Grid.RenderResultSet");

@@ -15,9 +15,9 @@
 
    <path id="classpath">
       <!-- SQL Developer -->
-      <pathelement path="${SQLDeveloper.home}/modules/oracle.javatools_11.1.1/javatools-nodeps.jar"/>
+      <pathelement path="${SQLDeveloper.home}/modules/oracle.javatools/javatools-nodeps.jar"/>
       <pathelement path="${SQLDeveloper.home}/jdev/lib/jdev-rt.jar"/>
-      <pathelement path="${SQLDeveloper.home}/jdbc/lib/ojdbc6.jar"/>
+      <pathelement path="${SQLDeveloper.home}/jdbc/lib/ojdbc8.jar"/>
       <pathelement path="${SQLDeveloper.home}/ide/lib/idert.jar"/>
       <pathelement path="${SQLDeveloper.home}/ide/extensions/oracle.ide.jar"/>
       <pathelement path="${SQLDeveloper.home}/ide/lib/dbapi.jar"/>
@@ -26,13 +26,15 @@
       <pathelement path="${SQLDeveloper.home}/ide/extensions/oracle.ide.navigator.jar"/>
       <pathelement path="${SQLDeveloper.home}/ide/extensions/oracle.ide.ceditor.jar" />
       <pathelement path="${SQLDeveloper.home}/sqldeveloper/lib/sdoapi.jar"/>
-      <pathelement path="${SQLDeveloper.home}/sqldeveloper/lib/oracle.sqldeveloper.utils.jar"/>
-      <pathelement path="${SQLDeveloper.home}/sqldeveloper/extensions/oracle.sqldeveloper.jar"/>
+      <pathelement path="${SQLDeveloper.home}/sqldeveloper/extensions/oracle.sqldeveloper.utils.jar"/>
+      <!--<pathelement path="${SQLDeveloper.home}/sqldeveloper/extensions/oracle.sqldeveloper.jar"/>-->
       <pathelement path="${SQLDeveloper.home}/sqldeveloper/extensions/oracle.sqldeveloper.snippet.jar"/>
-      <pathelement path="${SQLDeveloper.home}/sqldeveloper/lib/commons-codec-1.4.jar"/>
       <!-- Key external APIs -->
+      <pathelement location="${GeoRaptor.libdir}/commons-codec-1.8.jar"/>
+   	  <pathelement location="${GeoRaptor.libdir}/3.2/oracle.sqldeveloper.jar"/>
       <pathelement location="${GeoRaptor.libdir}/sdoutl.jar"/>
       <pathelement location="${GeoRaptor.libdir}/sdotopo.jar"/>
+   	  <pathelement location="${GeoRaptor.libdir}/sdoapi.jar"/>
       <pathelement location="${GeoRaptor.libdir}/xBaseJMicro.jar"/>
       <pathelement location="${GeoRaptor.libdir}/jts.jar"/>
    </path>
@@ -144,12 +146,16 @@
           tofile="${GeoRaptor.deploy}/GeoRaptorLibs/GeoRaptorSnippets.xml"/>      
       <copy file="${GeoRaptor.libdir}/sdoutl.jar"            tofile="${GeoRaptor.deploy}/GeoRaptorLibs/sdoutl.jar"/>
       <copy file="${GeoRaptor.libdir}/sdotopo.jar"           tofile="${GeoRaptor.deploy}/GeoRaptorLibs/sdotopo.jar"/>
+   	  <copy file="${GeoRaptor.libdir}/commons-codec-1.8.jar"           tofile="${GeoRaptor.deploy}/GeoRaptorLibs/commons-codec-1.8.jar"/>
+   	  <copy file="${GeoRaptor.libdir}/sdoapi.jar"            tofile="${GeoRaptor.deploy}/GeoRaptorLibs/sdoapi.jar"/>
       <copy file="${GeoRaptor.libdir}/xBaseJMicro.jar"       tofile="${GeoRaptor.deploy}/GeoRaptorLibs/xBaseJMicro.jar"/>
-      <copy file="${JTS.libdir}/jts.jar"                     tofile="${GeoRaptor.deploy}/GeoRaptorLibs/jts.jar"/>
+      <copy file="${GeoRaptor.libdir}/jts.jar"                     tofile="${GeoRaptor.deploy}/GeoRaptorLibs/jts.jar"/>
       <jar destfile="${GeoRaptor.dist}/org.GeoRaptor-install.jar">
          <fileset dir="${GeoRaptor.deploy}" includes="**/org.GeoRaptor.jar"/>
          <fileset dir="${GeoRaptor.deploy}" includes="**/sdoutl.jar"/>
          <fileset dir="${GeoRaptor.deploy}" includes="**/sdotopo.jar"/>
+      	 <fileset dir="${GeoRaptor.deploy}" includes="**/sdoapi.jar"/>
+      	 <fileset dir="${GeoRaptor.deploy}" includes="**/commons-codec-1.8.jar"/>
          <fileset dir="${GeoRaptor.deploy}" includes="**/jts.jar"/>
          <fileset dir="${GeoRaptor.deploy}" includes="**/xBaseJMicro.jar"/>
          <fileset dir="${GeoRaptor.deploy}" includes="**/GeoRaptorSnippets.xml"/>

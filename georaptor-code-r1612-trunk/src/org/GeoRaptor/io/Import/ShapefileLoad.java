@@ -1032,7 +1032,7 @@ public class ShapefileLoad extends javax.swing.JDialog
         try {
             LinkedHashMap<String, MetadataEntry> metaEntries = MetadataTool.getMetadata(conn, _schemaName, _objectName, _columnName, false);
             if (metaEntries.size() == 0) {
-                throw new Exception("No metadata for " + MetadataTool.objectString(_schemaName, _objectName, _columnName));
+                throw new Exception("No metadata for " + Strings.objectString(_schemaName, _objectName, _columnName));
             }
             LOGGER.debug(metaEntries.toString());
             if (Strings.isEmpty(_columnName) && metaEntries.size() > 1) {
@@ -1067,7 +1067,7 @@ public class ShapefileLoad extends javax.swing.JDialog
             LOGGER.debug("Exception thrown is " + e.toString());
             int n =
                 JOptionPane.showConfirmDialog(null, propertyManager.getMsg("SHPFILE_COLUMN_MISSING_MD", 
-                                                                           MetadataTool.objectString(_schemaName, _objectName, _columnName)), 
+                                                                           Strings.objectString(_schemaName, _objectName, _columnName)), 
                                               MainSettings.EXTENSION_NAME,
                                               JOptionPane.YES_NO_OPTION);
             if (n == 0) {

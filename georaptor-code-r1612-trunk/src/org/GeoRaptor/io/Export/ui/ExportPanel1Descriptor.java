@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JList;
-import javax.swing.JSlider;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -13,6 +12,7 @@ import org.GeoRaptor.MainSettings;
 import org.GeoRaptor.Messages;
 import org.GeoRaptor.Preferences;
 import org.GeoRaptor.io.Export.ExporterWriter;
+import org.GeoRaptor.tools.FileUtils;
 import org.GeoRaptor.tools.Tools;
 import org.GeoRaptor.tools.wizard.WizardPanelDescriptor;
 
@@ -66,7 +66,7 @@ public class ExportPanel1Descriptor
                                                             this.exporterWriter.getObjectName(),
                                                             this.exporterWriter.getColumnName(),
                                                             this.exporterWriter.getExportType().toString().toLowerCase()));
-        this.exporterWriter.setExportBaseName(Tools.getFileNameFromPath(this.exporterWriter.getExportFileName(),true));
+        this.exporterWriter.setExportBaseName(FileUtils.getFileNameFromPath(this.exporterWriter.getExportFileName(),true));
     }
 
     @Override

@@ -2,5 +2,21 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="georaptor-code-r1612-trunk/src"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/ojdbc8.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/oracle.ide.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/oracle.ide.navigator.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/sdoapi.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/jdev-rt.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/jts.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/sdoutl.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/xBaseJMicro.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/oracle.sqldeveloper.snippet.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/javatools.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/javax-ide.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/javatools-nodeps.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/dbapi.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/idert.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/oracle.ide.ceditor.jar"/>
+	<classpathentry kind="lib" path="georaptor-code-r1612-trunk/libs/18.1/oracle.sqldeveloper.jar"/>
 	<classpathentry kind="output" path="georaptor-code-r1612-trunk/classes"/>
 </classpath>

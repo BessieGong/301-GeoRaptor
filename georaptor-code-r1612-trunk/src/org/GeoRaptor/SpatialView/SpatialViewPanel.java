@@ -1339,7 +1339,7 @@ LOGGER.debug("btnQueryByPoint: finish");
                 return LayerReturnCode.Fail;
             }
         }
-        String layerName = MetadataTool.objectString(mEntry.getSchemaName(), 
+        String layerName = Strings.objectString(mEntry.getSchemaName(), 
                                                      mEntry.getObjectName(), 
                                                      mEntry.getColumnName());
         LOGGER.debug("layerName from mEntry is " + layerName);

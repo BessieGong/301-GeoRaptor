@@ -369,7 +369,7 @@ LOGGER.debug("SLayer.getMetadataEntry=" + this.mEntry + " copy=" + this.mEntry.c
                 } catch (SQLException e) {
                     // Probably connection not open.
                     String reason = "Failed to query database to check " + 
-                                 MetadataTool.objectString(this.getSchemaName(),
+                                 Strings.objectString(this.getSchemaName(),
                                                            this.getObjectName(),
                                                            this.getGeoColumn()) + 
                                  " existance: " + e.toString();

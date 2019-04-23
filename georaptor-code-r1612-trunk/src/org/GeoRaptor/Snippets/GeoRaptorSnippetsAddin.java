@@ -12,7 +12,7 @@ import oracle.ide.Addin;
 
 import org.GeoRaptor.Messages;
 
-public class GeoRaptorSnippetsAddin implements Addin {
+public class GeoRaptorSnippetsAddin extends SnippetAddin{
     public GeoRaptorSnippetsAddin() {
     }
 
@@ -26,7 +26,7 @@ public class GeoRaptorSnippetsAddin implements Addin {
         if (snippets != null)  {
             System.out.println("GeoRaptorSnippetsAddin: Registering: " + snippets.toString());
             //  Registering: jar:file:/F:/oracle/sqldeveloper32/sqldeveloper/extensions/org.GeoRaptor.jar!/org/GeoRaptor/snippets.xml
-            SnippetAddin.registerSnippet(snippets);
+           registerSnippet(snippets);
         } else {
             System.out.println("Didn't find snippets.xml, load from file");
             try 
