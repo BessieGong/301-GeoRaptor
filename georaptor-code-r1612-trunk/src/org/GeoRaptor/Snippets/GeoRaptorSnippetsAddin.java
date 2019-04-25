@@ -12,7 +12,7 @@ import oracle.ide.Addin;
 
 import org.GeoRaptor.Messages;
 
-public class GeoRaptorSnippetsAddin extends SnippetAddin{
+public class GeoRaptorSnippetsAddin extends SnippetAddin implements Addin {
     public GeoRaptorSnippetsAddin() {
     }
 
@@ -26,7 +26,7 @@ public class GeoRaptorSnippetsAddin extends SnippetAddin{
         if (snippets != null)  {
             System.out.println("GeoRaptorSnippetsAddin: Registering: " + snippets.toString());
             //  Registering: jar:file:/F:/oracle/sqldeveloper32/sqldeveloper/extensions/org.GeoRaptor.jar!/org/GeoRaptor/snippets.xml
-           registerSnippet(snippets);
+            registerSnippet(snippets);
         } else {
             System.out.println("Didn't find snippets.xml, load from file");
             try 
@@ -41,7 +41,7 @@ public class GeoRaptorSnippetsAddin extends SnippetAddin{
                     System.out.println("... Registering: " + geoSnippetsFile.toURI().toURL().toString());
                    // register the snippet url
                    // TODO Update Snippets implementation
-                   SnippetAddin.registerSnippet(geoSnippetsFile.toURI().toURL());
+                   registerSnippet(geoSnippetsFile.toURI().toURL());
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();

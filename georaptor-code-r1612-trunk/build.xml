@@ -27,11 +27,13 @@
       <pathelement path="${SQLDeveloper.home}/ide/extensions/oracle.ide.ceditor.jar" />
       <pathelement path="${SQLDeveloper.home}/sqldeveloper/lib/sdoapi.jar"/>
       <pathelement path="${SQLDeveloper.home}/sqldeveloper/extensions/oracle.sqldeveloper.utils.jar"/>
-      <!--<pathelement path="${SQLDeveloper.home}/sqldeveloper/extensions/oracle.sqldeveloper.jar"/>-->
+      <pathelement path="${SQLDeveloper.home}/sqldeveloper/extensions/oracle.sqldeveloper.jar"/>
       <pathelement path="${SQLDeveloper.home}/sqldeveloper/extensions/oracle.sqldeveloper.snippet.jar"/>
+   	  
+   	  <!--New add by Bessie Gong-->
+   	  <pathelement path="${SQLDeveloper.home}/sqldeveloper/lib/dbtools-common.jar"/>
       <!-- Key external APIs -->
       <pathelement location="${GeoRaptor.libdir}/commons-codec-1.8.jar"/>
-   	  <pathelement location="${GeoRaptor.libdir}/3.2/oracle.sqldeveloper.jar"/>
       <pathelement location="${GeoRaptor.libdir}/sdoutl.jar"/>
       <pathelement location="${GeoRaptor.libdir}/sdotopo.jar"/>
    	  <pathelement location="${GeoRaptor.libdir}/sdoapi.jar"/>

@@ -76,7 +76,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import oracle.dbtools.raptor.controls.RaptorDnD;
-import oracle.dbtools.raptor.navigator.DatabaseConnection;
+import oracle.dbtools.raptor.navigator.db.DatabaseConnection;
 import oracle.dbtools.raptor.utils.Connections;
 
 import oracle.ide.util.dnd.TransferableTreeNode;
