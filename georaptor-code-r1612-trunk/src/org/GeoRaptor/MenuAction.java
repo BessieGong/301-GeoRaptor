@@ -43,12 +43,12 @@ public class MenuAction extends AbstractMenuAction {
 
     private static final Logger LOGGER = Logging.getLogger("org.GeoRaptor.MenuAction");
 
-    protected static final String GENERAL_ERROR = MainSettings.EXTENSION_NAME + " Error";
-    
     // Action to do at launch
     private String action;
 
     protected ValidateSDOGeometry validateSDOGeom;
+
+	protected static final String GENERAL_ERROR = MainSettings.EXTENSION_NAME + " Error";
 
     /**
      * Called at menu-item click; action set in setArgs() method

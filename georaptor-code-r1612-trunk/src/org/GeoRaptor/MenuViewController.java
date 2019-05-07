@@ -1,25 +1,29 @@
 package org.GeoRaptor;
 
+import java.util.ArrayList;
+
+import javax.ide.model.Element;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
+import oracle.ide.Context;
 import oracle.ide.Ide;
 import oracle.ide.IdeMainWindow;
 import oracle.ide.controller.MenuManager;
 import oracle.ide.controller.Menubar;
+import oracle.ide.db.model.DBObjectTypeNode;
+import oracle.ide.controller.Controller;
+import oracle.ide.controller.IdeAction;
 
 
-/**
- * @author Simon Greener, 13th April 2010
- *          Added support for Constants.MENU_ITEM
- **/
-public class MenuViewController {
+public class MenuViewController{
 
-    private JMenu geoRaptorViewMenu;
-
-    private static MenuViewController instance=null;    
-
+	private JMenu geoRaptorViewMenu;
+	private static MenuViewController instance=null;    
+	
+	
     private MenuViewController() {
     }
     
@@ -51,5 +55,5 @@ public class MenuViewController {
             MenuManager.getJMenu(IdeMainWindow.MENU_VIEW).add(this.geoRaptorViewMenu);
         }
     }
-
+	
 }

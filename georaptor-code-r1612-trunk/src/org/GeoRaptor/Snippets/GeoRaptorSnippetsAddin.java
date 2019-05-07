@@ -26,7 +26,7 @@ public class GeoRaptorSnippetsAddin extends SnippetAddin implements Addin {
         if (snippets != null)  {
             System.out.println("GeoRaptorSnippetsAddin: Registering: " + snippets.toString());
             //  Registering: jar:file:/F:/oracle/sqldeveloper32/sqldeveloper/extensions/org.GeoRaptor.jar!/org/GeoRaptor/snippets.xml
-            registerSnippet(snippets);
+            registerSnippet(snippets, ClassLoader.getSystemClassLoader());
         } else {
             System.out.println("Didn't find snippets.xml, load from file");
             try 
@@ -41,7 +41,7 @@ public class GeoRaptorSnippetsAddin extends SnippetAddin implements Addin {
                     System.out.println("... Registering: " + geoSnippetsFile.toURI().toURL().toString());
                    // register the snippet url
                    // TODO Update Snippets implementation
-                   registerSnippet(geoSnippetsFile.toURI().toURL());
+                   registerSnippet(geoSnippetsFile.toURI().toURL(), ClassLoader.getSystemClassLoader());
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();

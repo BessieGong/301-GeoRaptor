@@ -7,7 +7,7 @@ import java.net.URL;
 
 
 import oracle.dbtools.raptor.dialogs.actions.XMLBasedObjectAction;
-
+//import oracle.dbtools.raptor.controls.grid.RaptorGridTable;
 import oracle.dbtools.raptor.snippet.SnippetAddin;
 
 import oracle.ide.Addin;
@@ -37,5 +37,6 @@ public class Menu implements Addin {
         // Create context menu for when a SELECT statement produces a grid of row data
         //FormatRegistry.registerFormater(new GMLFormatter());
         //FormatRegistry.registerFormater(new KMLFormatter());
+        //RaptorGridTable.addGridContextMenu(RenderResultSet.getInstance());
     }
 }
